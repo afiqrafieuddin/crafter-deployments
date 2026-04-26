@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopi Haus</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #1a1d23;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-image: linear-gradient(to bottom, #2f343a, #1a1d23);
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        header .logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-right: 20px;
+        }
+        
+        .hero {
+            background-image: url('https://source.unsplash.com/1600x900/?coffee,cup');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .hero button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            background-color: #2f343a;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        
+        .hero button:hover {
+            background-color: #1a1d23;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .feature {
+            margin: 20px;
+            padding: 20px;
+            background-color: #2f343a;
+            width: 200px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        
+        .feature h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .feature p {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .contact {
+            padding: 2rem;
+            background-color: #1a1d23;
+        }
+        
+        .contact h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .contact input, .contact textarea {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2f343a;
+            color: #ffffff;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .contact input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #2f343a;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        
+        .contact input[type="submit"]:hover {
+            background-color: #1a1d23;
+        }
+        
+        footer {
+            background-color: #2f343a;
+            padding: 20px;
+            text-align: center;
+            color: #ffffff;
+            clear: both;
+        }
+        
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        footer li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Kopi Haus</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="hero">
+        <h1>Experience the Perfect Cup</h1>
+        <button>Order Now</button>
+    </div>
+    <div class="features">
+        <div class="feature">
+            <h2>Dark Roast Coffee</h2>
+            <p>Our specialty dark roast coffee is made from 100% Arabica beans, carefully selected and roasted to perfection.</p>
+        </div>
+        <div class="feature">
+            <h2>Expertly Brewed</h2>
+            <p>Our baristas are trained to brew the perfect cup, every time, using state-of-the-art equipment and a passion for coffee.</p>
+        </div>
+        <div class="feature">
+            <h2>Cozy Atmosphere</h2>
+            <p>Our coffee shop is designed to be a cozy and inviting space, perfect for relaxing and enjoying a cup of coffee with friends.</p>
+        </div>
+    </div>
+    <div class="contact">
+        <h2>Get in Touch</h2>
+        <form>
+            <input type="text" placeholder="Name">
+            <input type="email" placeholder="Email">
+            <textarea placeholder="Message"></textarea>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+    <footer>
+        <ul>
+            <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+        </ul>
+        <p>&copy; 2023 Kopi Haus. All rights reserved.</p>
+    </footer>
+    <script>
+        // add animations here
+    </script>
+</body>
+</html>
