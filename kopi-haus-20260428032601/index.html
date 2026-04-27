@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kopi Haus - Artisan coffee house serving carefully crafted brews in a warm, modern space">
+    <title>Kopi Haus | Artisan Coffee</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            /* Dark coffee palette */
+            --color-bg: #0F0E0D;
+            --color-surface: #1A1716;
+            --color-surface-hover: #242120;
+            --color-primary: #C4A77D;
+            --color-primary-dark: #9B7F4E;
+            --color-text: #F5F3F0;
+            --color-text-muted: #A19A91;
+            --color-border: #2E2826;
+            --color-accent: #D4A574;
+
+            /* Typography */
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+
+            /* Spacing */
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2.5rem;
+            --spacing-xl: 4rem;
+            --spacing-2xl: 6rem;
+
+            /* Layout */
+            --max-width: 1200px;
+            --nav-height: 80px;
+
+            /* Effects */
+            --transition: all 0.2s ease-in-out;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--color-text);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: var(--spacing-md);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: var(--spacing-md);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        p {
+            color: var(--color-text-muted);
+            max-width: 65ch;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Container */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(15, 14, 13, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-logo:hover {
+            color: var(--color-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-primary);
+            transition: width 0.2s ease-in-out;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            color: var(--color-text);
+        }
+
+        .nav-link:hover::after,
+        .nav-link:focus::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .nav-toggle span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--color-text);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: var(--nav-height);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(196, 167, 125, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: var(--spacing-lg);
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: var(--spacing-lg);
+            padding: 1rem 2rem;
+            background-color: var(--color-primary);
+            color: var(--color-bg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-cta:hover,
+        .hero-cta:focus {
+            background-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-cta:focus {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        /* Sections */
+        section {
+            padding: var(--spacing-2xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-subtitle {
+            color: var(--color-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* Menu Section */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .menu-category {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            transition: var(--transition);
+        }
+
+        .menu-category:hover {
+            background-color: var(--color-surface-hover);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .menu-category h3 {
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid rgba(46, 40, 38, 0.5);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .menu-item-name {
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .menu-item-price {
+            color: var(--color-primary);
+            font-weight: 600;
+            font-family: var(--font-display);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--color-surface);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text-muted);
+        }
+
+        .contact-details strong {
+            color: var(--color-text);
+            font-weight: 500;
+            min-width: 80px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: var(--spacing-md);
+            padding: 0.75rem 1.5rem;
+            background-color: var(--color-primary);
+            color: var(--color-bg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .social-link:hover,
+        .social-link:focus {
+            background-color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .social-link:focus {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        .social-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Contact Form */
+        .form-wrapper {
+            background-color: var(--color-bg);
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--color-text);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem;
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(196, 167, 125, 0.15);
+            background-color: var(--color-surface-hover);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--color-primary);
+            color: var(--color-bg);
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-submit:hover,
+        .form-submit:focus {
+            background-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-submit:focus {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-message {
+            margin-top: var(--spacing-sm);
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+            display: block;
+        }
+
+        .form-message.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            padding: var(--spacing-lg) 0;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .footer-text {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-md);
+            list-style: none;
+        }
+
+        .footer-link {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover,
+        .footer-link:focus {
+            color: var(--color-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background-color: var(--color-bg);
+                border-bottom: 1px solid var(--color-border);
+                padding: var(--spacing-md);
+                gap: var(--spacing-sm);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+
+            .hero-cta {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: var(--spacing-xl) 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-logo {
+                font-size: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary);
+            color: var(--color-bg);
+            padding: 8px;
+            z-index: 1001;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Focus Visible */
+        :focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">Kopi Haus</a>
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="nav-menu" class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#menu" class="nav-link">Menu</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle">We opened in 2024</p>
+            <h1>Good Coffee,<br>Good People</h1>
+            <p>We're all about great coffee and good company. Each cup is brewed with care using quality beans and real craftsmanship. Whether you're here to work, catch up with friends, or just enjoy a quiet moment - we're glad you're here.</p>
+            <a href="#menu" class="hero-cta">Explore Our Menu</a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">What We Serve</p>
+                <h2>Our Menu</h2>
+                <p>We serve all the classics - espresso, pour overs, tea, and simple food. Everything is made fresh.</p>
+            </div>
+            <div class="menu-grid">
+                <!-- Espresso -->
+                <div class="menu-category">
+                    <h3>Espresso</h3>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Espresso</span>
+                        <span class="menu-item-price">$3.50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Double Espresso</span>
+                        <span class="menu-item-price">$4.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Macchiato</span>
+                        <span class="menu-item-price">$4.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Cappuccino</span>
+                        <span class="menu-item-price">$5.50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Latte</span>
+                        <span class="menu-item-price">$5.50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Flat White</span>
+                        <span class="menu-item-price">$5.50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Mocha</span>
+                        <span class="menu-item-price">$6.00</span>
+                    </div>
+                </div>
+
+                <!-- Pour Over -->
+                <div class="menu-category">
+                    <h3>Pour Over</h3>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Pour Over</span>
+                        <span class="menu-item-price">$5.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Batch Brew</span>
+                        <span class="menu-item-price">$4.50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Cold Brew</span>
+                        <span class="menu-item-price">$4.50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Nitro Cold Brew</span>
+                        <span class="menu-item-price">$6.00</span>
+                    </div>
+                </div>
+
+                <!-- Tea & More -->
+                <div class="menu-category">
+                    <h3>Tea & More</h3>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Chai Latte</span>
+                        <span class="menu-item-price">$5.50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Matcha Latte</span>
+                        <span class="menu-item-price">$6.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Hot Tea</span>
+                        <span class="menu-item-price">$3.50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Iced Tea</span>
+                        <span class="menu-item-price">$4.00</span>
+                    </div>
+                </div>
+
+                <!-- Food -->
+                <div class="menu-category">
+                    <h3>Food</h3>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Pastries</span>
+                        <span class="menu-item-price">$4.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Breakfast Sandwich</span>
+                        <span class="menu-item-price">$8.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Avocado Toast</span>
+                        <span class="menu-item-price">$9.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">Granola Bowl</span>
+                        <span class="menu-item-price">$7.50</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Get in touch</p>
+                <h2>Visit Us</h2>
+            </div>
+            <div class="contact-wrapper">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h3>Hours</h3>
+                    <ul class="contact-details">
+                        <li><strong>Mon–Fri</strong> 7:00 AM – 8:00 PM</li>
+                        <li><strong>Saturday</strong> 8:00 AM – 9:00 PM</li>
+                        <li><strong>Sunday</strong> 8:00 AM – 7:00 PM</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem;">Location</h3>
+                    <ul class="contact-details">
+                        <li><strong>Address</strong> 123 Coffee Lane, Downtown</li>
+                        <li><strong>City</strong> Kuala Lumpur, Malaysia</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem;">Connect</h3>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                        @kopihaus
+                    </a>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="form-wrapper">
+                    <form id="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your name" required aria-required="true" aria-describedby="name-error">
+                            <div id="name-error" class="form-message" role="alert"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com" required aria-required="true" aria-describedby="email-error">
+                            <div id="email-error" class="form-message" role="alert"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required aria-required="true">
+                                <option value="" disabled selected>Select a topic</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="suggestion">Suggestion</option>
+                                <option value="question">Question</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Your message..." required aria-required="true" aria-describedby="message-error"></textarea>
+                            <div id="message-error" class="form-message" role="alert"></div>
+                        </div>
+
+                        <button type="submit" class="form-submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">Kopi Haus</div>
+            <p class="footer-text">© 2024 Kopi Haus. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#home" class="footer-link">Home</a></li>
+                <li><a href="#menu" class="footer-link">Menu</a></li>
+                <li><a href="#contact" class="footer-link">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', !isExpanded);
+                navLinks.classList.toggle('active');
+            });
+
+            // Close menu when clicking a link
+            navLinks.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    const navHeight = document.querySelector('.nav').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Contact Form Validation and Submission
+        const contactForm = document.getElementById('contact-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+
+        function showError(fieldId, message) {
+            const errorElement = document.getElementById(`${fieldId}-error`);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.className = 'form-message error';
+            }
+            document.getElementById(fieldId).setAttribute('aria-invalid', 'true');
+        }
+
+        function clearError(fieldId) {
+            const errorElement = document.getElementById(`${fieldId}-error`);
+            if (errorElement) {
+                errorElement.textContent = '';
+                errorElement.className = 'form-message';
+            }
+            document.getElementById(fieldId).setAttribute('aria-invalid', 'false');
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validateField(field) {
+            const value = field.value.trim();
+            let isValid = true;
+
+            if (field.required && !value) {
+                showError(field.id, 'Please fill out this field');
+                isValid = false;
+            } else if (field.id === 'email' && value && !isValidEmail(value)) {
+                showError(field.id, 'Please enter a valid email address');
+                isValid = false;
+            } else if (field.id === 'message' && value.length < 10) {
+                showError(field.id, 'Please say a bit more (at least 10 characters)');
+                isValid = false;
+            } else {
+                clearError(field.id);
+            }
+
+            return isValid;
+        }
+
+        // Real-time validation
+        nameInput.addEventListener('blur', () => validateField(nameInput));
+        emailInput.addEventListener('blur', () => validateField(emailInput));
+        messageInput.addEventListener('blur', () => validateField(messageInput));
+
+        // Clear errors on input
+        nameInput.addEventListener('input', () => {
+            if (nameInput.getAttribute('aria-invalid') === 'true') {
+                validateField(nameInput);
+            }
+        });
+        emailInput.addEventListener('input', () => {
+            if (emailInput.getAttribute('aria-invalid') === 'true') {
+                validateField(emailInput);
+            }
+        });
+        messageInput.addEventListener('input', () => {
+            if (messageInput.getAttribute('aria-invalid') === 'true') {
+                validateField(messageInput);
+            }
+        });
+
+        // Form submission
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Validate all fields
+            const nameValid = validateField(nameInput);
+            const emailValid = validateField(emailInput);
+            const subjectValid = validateField(document.getElementById('subject'));
+            const messageValid = validateField(messageInput);
+
+            if (!nameValid || !emailValid || !subjectValid || !messageValid) {
+                // Focus first invalid field
+                const firstInvalid = contactForm.querySelector('[aria-invalid="true"]');
+                if (firstInvalid) {
+                    firstInvalid.focus();
+                }
+                return;
+            }
+
+            const submitBtn = contactForm.querySelector('.form-submit');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            try {
+                // Simulate form submission (replace with actual endpoint)
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Show success message
+                const formGroups = contactForm.querySelectorAll('.form-group');
+                formGroups.forEach(group => {
+                    const input = group.querySelector('input, textarea, select');
+                    if (input) input.value = '';
+                });
+
+                const subjectSelect = document.getElementById('subject');
+                subjectSelect.selectedIndex = 0;
+
+                const successMessage = document.createElement('div');
+                successMessage.className = 'form-message success';
+                successMessage.style.display = 'block';
+                successMessage.textContent = 'Thanks! We got your message.';
+                contactForm.querySelector('.form-wrapper').appendChild(successMessage);
+
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+
+            } catch (error) {
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'form-message error';
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Hmm, that didn\'t work. Please try again.';
+                contactForm.querySelector('.form-wrapper').appendChild(errorMessage);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.menu-category').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
