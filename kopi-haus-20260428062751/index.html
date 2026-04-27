@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kopi Haus - Your neighborhood coffee sanctuary. Freshly roasted coffee, homemade pastries, and a cozy spot to unwind.">
+    <title>Kopi Haus - Coffee Done Right</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #252525;
+            --bg-card: #2d2d2d;
+            --text-primary: #f5f5f5;
+            --text-secondary: #b0b0b0;
+            --accent: #c9a86c;
+            --accent-hover: #dbbf8f;
+            --border: #404040;
+            --success: #4ade80;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 24px;
+        }
+
+        .hero .tagline {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 500;
+            border-radius: 4px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--bg-secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .about-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        /* Menu Section */
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 10px 24px;
+            background-color: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .menu-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .menu-item h3 {
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .menu-item-price {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .menu-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .menu-item .tags {
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-radius: 20px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--bg-secondary);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .contact-details i {
+            color: var(--accent);
+            margin-right: 12px;
+            margin-top: 4px;
+            font-size: 1.1rem;
+        }
+
+        .contact-form {
+            background-color: var(--bg-card);
+            padding: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group .error {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 6px;
+        }
+
+        .form-group.success input,
+        .form-group.success textarea {
+            border-color: var(--success);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 600;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .submit-btn:disabled {
+            background-color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 48px 0 24px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content,
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .tagline {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+        }
+
+        /* Form Success/Error Messages */
+        .form-message {
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-top: 16px;
+            font-size: 0.95rem;
+        }
+
+        .form-message.success {
+            background-color: rgba(74, 222, 128, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .form-message.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        /* Skip to main content for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 8px;
+            z-index: 1001;
+            border-radius: 0 0 4px 0;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kopi Haus</div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Your Neighborhood Coffee Sanctuary</h1>
+                    <p class="tagline">We roast, brew, and serve coffee that feels like home. Every cup tells a story, and we'd love to share ours with you.</p>
+                    <a href="#menu" class="btn">See What's Brewing</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section about" id="about">
+            <div class="container">
+                <h2 class="section-title">A Labor of Love</h2>
+                <p class="section-subtitle">We're not just another coffee shop. We're your third place—the spot between home and work where you can breathe.</p>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Kopi Haus started with a simple idea: coffee should bring people together. In 2019, we opened our doors with a single espresso machine and a big dream. Today, we're proud to serve our community with coffee that's ethically sourced and roasted right here in small batches.</p>
+                        <p>We believe in doing things the slow way. That means taking time to perfect each drink, remembering your name and your usual order, and creating a space where you can actually relax. Whether you're here for your morning ritual, a midday break, or to catch up with friends—we've got a seat with your name on it.</p>
+                        <p>Stop by. Stay a while. We'll have a fresh cup ready for you.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cozy interior of Kopi Haus coffee shop with warm lighting and wooden furniture">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section class="section" id="menu">
+            <div class="container">
+                <h2 class="section-title">What's On Our Menu</h2>
+                <p class="section-subtitle">From classic espresso drinks to our own twists. Everything is made fresh, just for you.</p>
+
+                <div class="menu-categories">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="coffee">Coffee</button>
+                    <button class="category-btn" data-category="espresso">Espresso</button>
+                    <button class="category-btn" data-category="pastries">Pastries</button>
+                </div>
+
+                <div class="menu-grid" id="menuGrid">
+                    <!-- Coffee Items -->
+                    <div class="menu-item" data-category="coffee">
+                        <div class="menu-item-header">
+                            <h3>House Pour Over</h3>
+                            <span class="menu-item-price">$4.50</span>
+                        </div>
+                        <p>Slow-brewed single origin coffee. Ask about today's origin—it changes weekly.</p>
+                        <div class="tags">
+                            <span class="tag">Single Origin</span>
+                            <span class="tag">$4.50</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-category="coffee">
+                        <div class="menu-item-header">
+                            <h3>Cold Brew</h3>
+                            <span class="menu-item-price">$4.50</span>
+                        </div>
+                        <p>20-hour steeped, smooth and bold. Served over ice or straight up.</p>
+                        <div class="tags">
+                            <span class="tag">Cold</span>
+                            <span class="tag">$4.50</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-category="coffee">
+                        <div class="menu-item-header">
+                            <h3>Nitro Cold Brew</h3>
+                            <span class="menu-item-price">$5.50</span>
+                        </div>
+                        <p>Creamy, cascading nitro-infused cold brew with a frothy head.</p>
+                        <div class="tags">
+                            <span class="tag">Cold</span>
+                            <span class="tag">$5.50</span>
+                        </div>
+                    </div>
+
+                    <!-- Espresso Items -->
+                    <div class="menu-item" data-category="espresso">
+                        <div class="menu-item-header">
+                            <h3>Espresso</h3>
+                            <span class="menu-item-price">$3.00</span>
+                        </div>
+                        <p>A single or double shot of our house blend. Intense and sweet.</p>
+                        <div class="tags">
+                            <span class="tag">Classic</span>
+                            <span class="tag">$3.00</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-category="espresso">
+                        <div class="menu-item-header">
+                            <h3>Flat White</h3>
+                            <span class="menu-item-price">$4.50</span>
+                        </div>
+                        <p>Double ristretto shots with velvety microfoam. Strong but smooth.</p>
+                        <div class="tags">
+                            <span class="tag">Strong</span>
+                            <span class="tag">$4.50</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-category="espresso">
+                        <div class="menu-item-header">
+                            <h3>Oat Milk Latte</h3>
+                            <span class="menu-item-price">$5.00</span>
+                        </div>
+                        <p>Espresso with steamed oat milk. Our most popular plant-based option.</p>
+                        <div class="tags">
+                            <span class="tag">Dairy-Free</span>
+                            <span class="tag">$5.00</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-category="espresso">
+                        <div class="menu-item-header">
+                            <h3>Mocha</h3>
+                            <span class="menu-item-price">$5.00</span>
+                        </div>
+                        <p>Rich dark chocolate meets espresso, topped with whipped cream.</p>
+                        <div class="tags">
+                            <span class="tag">Sweet</span>
+                            <span class="tag">$5.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Pastry Items -->
+                    <div class="menu-item" data-category="pastries">
+                        <div class="menu-item-header">
+                            <h3>Almond Croissant</h3>
+                            <span class="menu-item-price">$4.00</span>
+                        </div>
+                        <p>Buttery, flaky pastry filled with almond cream and sliced almonds.</p>
+                        <div class="tags">
+                            <span class="tag">Baked Fresh</span>
+                            <span class="tag">$4.00</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-category="pastries">
+                        <div class="menu-item-header">
+                            <h3>Pain au Chocolat</h3>
+                            <span class="menu-item-price">$3.75</span>
+                        </div>
+                        <p>Classic French pastry with dark chocolate chunks inside.</p>
+                        <div class="tags">
+                            <span class="tag">Baked Fresh</span>
+                            <span class="tag">$3.75</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-category="pastries">
+                        <div class="menu-item-header">
+                            <h3>Banana Bread</h3>
+                            <span class="menu-item-price">$3.50</span>
+                        </div>
+                        <p>Moist, homemade banana bread with walnuts. Served warm.</p>
+                        <div class="tags">
+                            <span class="tag">Homemade</span>
+                            <span class="tag">$3.50</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-category="pastries">
+                        <div class="menu-item-header">
+                            <h3>Cinnamon Roll</h3>
+                            <span class="menu-item-price">$4.25</span>
+                        </div>
+                        <p>Soft, gooey cinnamon roll with cream cheese frosting.</p>
+                        <div class="tags">
+                            <span class="tag">Homemade</span>
+                            <span class="tag">$4.25</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section contact" id="contact">
+            <div class="container">
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-subtitle">Have a question, want to say hello, or interested in partnering with us? We'd love to hear from you.</p>
+
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h3>Drop By or Write</h3>
+                        <p>We're open seven days a week. Swing by for a cup, or send us a message and we'll get back to you within 24 hours.</p>
+                        <ul class="contact-details">
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>123 Coffee Lane, Downtown<br>Springfield, IL 62701</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 123-4567</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <span>hello@kopihaus.com</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-clock"></i>
+                                <span>Mon–Fri: 7am–7pm<br>Sat–Sun: 8am–6pm</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="contact-form">
+                        <form id="contactForm" novalidate>
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" required aria-required="true" placeholder="Jane Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required aria-required="true" placeholder="jane@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">What's this about?</label>
+                                <select id="subject" name="subject" required aria-required="true">
+                                    <option value="" disabled selected>Select a topic</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="partnership">Partnership</option>
+                                    <option value="catering">Catering</option>
+                                    <option value="other">Something Else</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" name="message" required aria-required="true" placeholder="Tell us what's on your mind..."></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+                            <div id="formMessage" class="form-message" style="display: none;"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Kopi Haus</div>
+                <div class="social-links">
+                    <a href="https://instagram.com/kopihaus" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kopi Haus. Made with love and lots of coffee.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+            }
+        });
+
+        // Menu Category Filtering
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const category = button.dataset.category;
+
+                // Filter items
+                menuItems.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                        item.style.animation = 'fadeIn 0.3s ease-out';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Contact Form Handling
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+        const submitBtn = document.getElementById('submitBtn');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Clear previous messages
+            formMessage.style.display = 'none';
+            formMessage.className = 'form-message';
+
+            // Basic validation
+            let isValid = true;
+            const formGroups = contactForm.querySelectorAll('.form-group');
+
+            formGroups.forEach(group => {
+                const input = group.querySelector('input, select, textarea');
+                const error = group.querySelector('.error');
+
+                if (input.hasAttribute('required') && !input.value.trim()) {
+                    isValid = false;
+                    if (!error) {
+                        const err = document.createElement('span');
+                        err.className = 'error';
+                        err.textContent = 'This field is required';
+                        group.appendChild(err);
+                    }
+                    group.classList.add('error');
+                } else if (input.type === 'email' && !validateEmail(input.value)) {
+                    isValid = false;
+                    if (!error) {
+                        const err = document.createElement('span');
+                        err.className = 'error';
+                        err.textContent = 'Please enter a valid email address';
+                        group.appendChild(err);
+                    }
+                    group.classList.add('error');
+                } else {
+                    group.classList.remove('error');
+                    const errorEl = group.querySelector('.error');
+                    if (errorEl) errorEl.remove();
+                }
+            });
+
+            if (!isValid) return;
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            // Simulate form submission (replace with actual endpoint)
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+
+                // Success
+                formMessage.textContent = 'Thanks for reaching out! We\'ll get back to you within a day.';
+                formMessage.classList.add('success');
+                formMessage.style.display = 'block';
+                contactForm.reset();
+            } catch (error) {
+                // Error
+                formMessage.textContent = 'Something went wrong. Please try again later or email us directly at hello@kopihaus.com';
+                formMessage.classList.add('error');
+                formMessage.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Smooth scroll for anchor links (fallback for browsers that don't support css scroll-behavior)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
