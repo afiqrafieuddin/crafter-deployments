@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IronHouse Gym - Transform Your Body</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --color-bg: #0a0a0a;
+            --color-surface: #1a1a1a;
+            --color-primary: #ff3737;
+            --color-primary-dark: #cc2a2a;
+            --color-primary-light: #ff5252;
+            --color-text: #f0f0f0;
+            --color-muted: #666666;
+            --color-border: #2a2a2a;
+
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-body: 'Merriweather', serif;
+
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 80px;
+            --spacing-4xl: 120px;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            font-size: 18px;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: 0.02em;
+        }
+
+        h1 {
+            font-size: clamp(48px, 8vw, 64px);
+        }
+
+        h2 {
+            font-size: clamp(28px, 5vw, 36px);
+        }
+
+        h3 {
+            font-size: clamp(24px, 4vw, 32px);
+        }
+
+        p {
+            color: var(--color-muted);
+            margin-bottom: var(--spacing-md);
+        }
+
+        a {
+            color: var(--color-text);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        button {
+            font-family: var(--font-display);
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        .section {
+            padding: var(--spacing-4xl) 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-sm) var(--spacing-xl);
+            font-size: clamp(16px, 2vw, 20px);
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-base);
+            gap: var(--spacing-xs);
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-text);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            transform: translateY(-2px);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .section-header h2 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text);
+        }
+
+        .section-header p {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: var(--spacing-md) 0;
+            transition: all var(--transition-base);
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            padding: var(--spacing-sm) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 800;
+            color: var(--color-primary);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-xl);
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-display);
+            font-size: clamp(14px, 2vw, 16px);
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-primary);
+            transition: width var(--transition-base);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            color: var(--color-text);
+            font-size: 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--color-bg) 0%, #1a0a0a 100%);
+            overflow: hidden;
+            padding: var(--spacing-4xl) 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 55, 55, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--color-text) 0%, var(--color-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(18px, 3vw, 24px);
+            color: var(--color-muted);
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-3xl);
+            margin-top: var(--spacing-3xl);
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 6vw, 48px);
+            font-weight: 800;
+            color: var(--color-primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: clamp(12px, 2vw, 14px);
+            color: var(--color-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: var(--spacing-xs);
+        }
+
+        /* Services Section */
+        .services {
+            background-color: var(--color-bg);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .service-card {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-xl);
+            transition: all var(--transition-base);
+            border: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            transform: scaleX(0);
+            transition: transform var(--transition-base);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-primary);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .service-card h3 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text);
+        }
+
+        .service-card p {
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background-color: var(--color-bg);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .pricing-card {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-2xl);
+            text-align: center;
+            transition: all var(--transition-base);
+            border: 2px solid var(--color-border);
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--color-primary);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            padding: 4px 16px;
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            border-radius: 20px;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .pricing-tier {
+            font-family: var(--font-display);
+            font-size: clamp(20px, 3vw, 24px);
+            font-weight: 800;
+            color: var(--color-text);
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-price {
+            font-family: var(--font-display);
+            font-size: clamp(48px, 8vw, 64px);
+            font-weight: 800;
+            color: var(--color-primary);
+            line-height: 1;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pricing-period {
+            font-size: 16px;
+            color: var(--color-muted);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: var(--spacing-xl);
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--color-text);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features i {
+            color: var(--color-primary);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--color-bg);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-3xl);
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text);
+        }
+
+        .contact-info p {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text);
+        }
+
+        .contact-details i {
+            color: var(--color-primary);
+            font-size: 20px;
+            width: 24px;
+        }
+
+        .contact-form {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-2xl);
+            border: 1px solid var(--color-border);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--color-text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: var(--color-bg);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 16px;
+            transition: all var(--transition-fast);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(255, 55, 55, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--color-muted);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-surface);
+            padding: var(--spacing-3xl) 0 var(--spacing-lg);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-2xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .footer-section h4 {
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text);
+            font-size: 20px;
+        }
+
+        .footer-section p {
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-links a {
+            color: var(--color-muted);
+            transition: color var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-bg);
+            border-radius: 50%;
+            color: var(--color-text);
+            transition: all var(--transition-fast);
+        }
+
+        .social-links a:hover {
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--color-border);
+            color: var(--color-muted);
+            font-size: 14px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--color-surface);
+                flex-direction: column;
+                padding: var(--spacing-lg);
+                gap: var(--spacing-md);
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-8px);
+            }
+
+            .hero-stats {
+                gap: var(--spacing-lg);
+            }
+
+            .section {
+                padding: var(--spacing-3xl) 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 var(--spacing-md);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .services-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">IRONHOUSE</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="fade-in">Forge Your Legacy</h1>
+                <p class="fade-in">Where strength meets determination. Join IronHouse and transform your body with world-class equipment, expert trainers, and a community that pushes you further.</p>
+                <div class="hero-buttons fade-in">
+                    <a href="#pricing" class="btn btn-primary">
+                        Start Your Journey
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#services" class="btn btn-outline">
+                        Explore Services
+                    </a>
+                </div>
+                <div class="hero-stats fade-in">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Members</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Expert Trainers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Access</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>What We Offer</h2>
+                <p>Everything you need to build strength, burn fat, and become the best version of yourself.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card stagger-item">
+                    <div class="service-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Strength Training</h3>
+                    <p>State-of-the-art free weights, machines, and functional training zones designed for serious lifters.</p>
+                </div>
+                <div class="service-card stagger-item">
+                    <div class="service-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Cardio Zone</h3>
+                    <p>Top-tier treadmills, bikes, and rowers with heart rate monitoring and personalized workout programs.</p>
+                </div>
+                <div class="service-card stagger-item">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Group Classes</h3>
+                    <p>High-energy classes including HIIT, spin, yoga, and boxing led by certified instructors.</p>
+                </div>
+                <div class="service-card stagger-item">
+                    <div class="service-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Personal Training</h3>
+                    <p>One-on-one sessions with expert trainers who create customized plans for your goals.</p>
+                </div>
+                <div class="service-card stagger-item">
+                    <div class="service-icon">
+                        <i class="fas fa-shower"></i>
+                    </div>
+                    <h3>Premium Amenities</h3>
+                    <p>Clean locker rooms, showers, towel service, and recovery zones with foam rolling.</p>
+                </div>
+                <div class="service-card stagger-item">
+                    <div class="service-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <h3>Nutrition Coaching</h3>
+                    <p>Meal planning and supplement guidance to fuel your workouts and maximize results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Membership Plans</h2>
+                <p>Choose the plan that fits your goals. No hidden fees, no contracts, just results.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card stagger-item">
+                    <div class="pricing-tier">Basic</div>
+                    <div class="pricing-price">$49</div>
+                    <div class="pricing-period">per month</div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 24/7 gym access</li>
+                        <li><i class="fas fa-check"></i> All equipment</li>
+                        <li><i class="fas fa-check"></i> Locker room access</li>
+                        <li><i class="fas fa-check"></i> Free parking</li>
+                        <li><i class="fas fa-times"></i> Group classes</li>
+                        <li><i class="fas fa-times"></i> Personal training</li>
+                    </ul>
+                    <button class="btn btn-outline">Get Started</button>
+                </div>
+                <div class="pricing-card featured stagger-item">
+                    <div class="pricing-tier">Pro</div>
+                    <div class="pricing-price">$79</div>
+                    <div class="pricing-period">per month</div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 24/7 gym access</li>
+                        <li><i class="fas fa-check"></i> All equipment</li>
+                        <li><i class="fas fa-check"></i> Locker room access</li>
+                        <li><i class="fas fa-check"></i> Free parking</li>
+                        <li><i class="fas fa-check"></i> Unlimited group classes</li>
+                        <li><i class="fas fa-times"></i> Personal training</li>
+                    </ul>
+                    <button class="btn btn-primary">Get Started</button>
+                </div>
+                <div class="pricing-card stagger-item">
+                    <div class="pricing-tier">Elite</div>
+                    <div class="pricing-price">$129</div>
+                    <div class="pricing-period">per month</div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 24/7 gym access</li>
+                        <li><i class="fas fa-check"></i> All equipment</li>
+                        <li><i class="fas fa-check"></i> Premium locker room</li>
+                        <li><i class="fas fa-check"></i> Free parking</li>
+                        <li><i class="fas fa-check"></i> Unlimited group classes</li>
+                        <li><i class="fas fa-check"></i> 4 PT sessions/month</li>
+                    </ul>
+                    <button class="btn btn-outline">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Ready to start your transformation? Reach out and let's talk about your goals.</p>
+            </div>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Visit IronHouse</h3>
+                    <p>Stop by for a tour and see why hundreds of members call IronHouse their second home. Our team is ready to show you around and answer any questions.</p>
+                    <ul class="contact-details">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Fitness Drive, Downtown District</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>(555) 123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@ironhouse.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Open 24/7 for members</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your fitness goals..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Send Message
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>IronHouse</h4>
+                    <p>Forging stronger bodies and minds since 2020. Join our community and push your limits.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hours</h4>
+                    <ul class="footer-links">
+                        <li>Monday - Friday: 24/7</li>
+                        <li>Saturday: 24/7</li>
+                        <li>Sunday: 24/7</li>
+                        <li>Holidays: 24/7</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 IronHouse Gym. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            });
+        });
+
+        // Hero animations
+        gsap.to('.fade-in', {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power3.out'
+        });
+
+        // Services cards stagger animation
+        gsap.to('.services .stagger-item', {
+            scrollTrigger: {
+                trigger: '.services',
+                start: 'top 80%',
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out'
+        });
+
+        // Pricing cards stagger animation
+        gsap.to('.pricing .stagger-item', {
+            scrollTrigger: {
+                trigger: '.pricing',
+                start: 'top 80%',
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out'
+        });
+
+        // Contact form animation
+        gsap.to('.contact-wrapper', {
+            scrollTrigger: {
+                trigger: '.contact',
+                start: 'top 80%',
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out'
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(contactForm);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const message = formData.get('message');
+
+            // Simple validation
+            if (!name || !email || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Simulate form submission
+            alert(`Thanks ${name}! We'll get back to you soon at ${email}.`);
+            contactForm.reset();
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
